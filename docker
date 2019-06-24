@@ -1,1 +1,49 @@
-docker
+docker - это виртуальная машина по сути - аналогия с oracle virtualbox
+docker engine - сама прога docker
+docker image - это не запущенная виртуальная машина (аналогия с iso ОС)
+docker container - это бегущая запущенная виртуальная машина
+docker tag - это тэги каждого images - по ним можно создавать дубликаты с другим тегом
+dockerfile - это файл скрипта, кот. в последующем формируется в отдельный билд и dockerimage:
+докер реестр - хранит images - это и есть dockerhub 
+http://prntscr.com/nuvkur
+у докера есть свой синтаксис для создания dockerfile, нужно смотреть оф. документацию:
+
+docker.com:
+http://prntscr.com/nuvnl4
+установка ubuntu:
+sudo apt install docker-ce
+проверка статуса:
+sudo systemctl status docker
+посмотреть версию:
+docker -v
+просмотреть какие image есть на хосте:
+docker images
+запуск dockerimage с хоста: если локально он не найдет с таким названием image, он попробует качнуть с хаба:
+docker run hello-world
+
+dockerhub - удаленный репозиторий с готовыми images, которые можно стянуть]
+docker searh tomcat - ищет на dockerhub image tomcat
+docker pull tomcat - стягивает его с хаба
+
+docker ps - показать, какие контейнеры сейчас бегут
+
+docker run -it -p 1234:8080 tomcat - запускается image tomcat в интерактивном режиме с перенаправлением порта на 1234 - после запуска выдаст id контейнера
+docker run -d -p 1234:8080 tomcat - запускается image tomcat в background режиме (запускается демон) с перенаправлением порта на 1234 - после запуска выдаст id контейнера
+
+
+docker run -d -p 1237:80 ngnix - локально на хосте его нет и он стянет автоматически с dockerhub
+
+docker rmi [name of image] - удалить с хоста image, !!! - он не удалится, если контейнер использует(л) этот image
+
+docker rm [id of dockercontainer] - стереть контейнер
+
+docker build -t [name of image] . - сформировать билд с dockerfile c текущей директории (в конце точка)- и генерится image 
+
+docker exec -it [id of dockercontainer] /bin/bash - командой сделался логин в бегущий контейнер и открылся его терминал bash
+
+!!!! - эти контейнеры(мини виртуальные машины) максимально урезаны по возможностям (пример - на ubuntu web сервер nginx отстутсвует дефолтный текст. редактор nano)
+
+docker commit [id of container] [name of images: new tag] - создаём новую версию image после внесённых изменений с новым тегом
+
+
+
